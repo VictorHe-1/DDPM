@@ -8,13 +8,12 @@ from torch import nn
 from utils.helper_functions import gather
 
 
-class DenoiseDiffusion:
-    def __int__(self,
+class DenoiseDiffusion(nn.Module):
+    def __init__(self,
                 eps_model: nn.Module,
-                beta_start: float,  # 0.0001
-                beta_end: float,  # 0.02
                 n_steps: int,
                 device: torch.device):
+        super().__init__()
         self.eps_model = eps_model
         self.beta = torch.linspace(0.0001, 0.02, n_steps).to(device)
         self.alpha = 1. - self.beta
